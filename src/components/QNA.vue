@@ -50,7 +50,7 @@
                 </div>
                <div class="message-p">
                  <p>Hello</p>
-                 <b>{{expert.name.length}}</b>
+                 <b>300</b>
                  </div>
               </div>
             </div>
@@ -951,7 +951,7 @@ margin-bottom: 0px;
   color: #fff;
   min-width: 20px;
   width: auto;
-  height: 20px;   
+  height: auto;   
   border-radius: 50%;
   display: flex;
   justify-content: center;
