@@ -1,3 +1,429 @@
+ else if (this.user === "Mount Everest") {
+        let time = this.findTime();
+        this.experts.map((timeObject) => {
+          if (timeObject.name === this.user) {
+            timeObject.time = time;
+          }
+        });
+        let typedMessage = document.getElementById("data").value;
+        let newQues = {
+          user: this.user,
+          question: typedMessage,
+          ans1: "",
+          ans2: "",
+          ans3: "",
+          time: time,
+        };
+        this.questionHistory.push(newQues);
+        this.loader = true;
+        document.getElementById("data").value = "";
+        this.model = "";
+        this.mountet = "";
+        qna.load().then((model) => {
+          // Find the answers
+          model.findAnswers(typedMessage, this.MountEverest).then((answers) => {
+            let len = this.questionHistory.length;
+            if (answers.length > 0) {
+              if (answers.length > 1) {
+                if (answers.length > 2) {
+                  this.questionHistory[len - 1].ans1 = answers[0].text;
+                  this.questionHistory[len - 1].ans2 = answers[1].text;
+                  this.questionHistory[len - 1].ans3 = answers[2].text;
+                } else {
+                  this.questionHistory[len - 1].ans1 = answers[0].text;
+                  this.questionHistory[len - 1].ans2 = answers[1].text;
+                }
+              } else {
+                this.questionHistory[len - 1].ans1 = answers[0].text;
+              }
+            } else {
+              this.questionHistory[len - 1].ans1 = "Sorry! No Answer";
+            }
+            this.loader = false;
+            this.send = false; 
+          });
+        });
+      }
+
+
+      when was born akbar
+
+
+
+      <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  border: 5px solid gold;
+  background: linear-gradient(
+    #009688 0%,
+    #009688 130px,
+  
+  );
+}
+.notification{
+  width: 20px;
+  background: rgb(8, 110, 5);
+  color: rgb(234, 241, 236);
+  border-radius: 10px;
+  text-align: center;
+ margin-left: 20px;
+
+}
+
+
+.main {
+  
+  width: 95%;
+  margin: 0 auto 0;
+  max-width: 100%;
+  height: calc(100vh - 40px);
+  background: #ffff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.06);
+  display: flex;
+  border: 2px solid red;
+}
+.main .leftSide {
+  position: relative;
+  width: 30%;
+  flex: 30%;
+  background: #ffff;
+  border-right: 1px solid #000;
+}
+.main .rightSide {
+  position: relative;
+  width: 70%;
+  flex: 70%;
+  background: #e5ddd5;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background: #ededed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.userImg {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nav_icons {
+  display: flex;
+}
+.nav_icons li {
+  display: flex;
+  list-style: none;
+  cursor: pointer;
+  color: #51585c;
+  font-size: 1.5em;
+  margin-left: 22px;
+}
+.search-chat {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+}
+.search-chat div {
+  width: 100%;
+}
+.search-chat div input {
+  width: 100%;
+  outline: none;
+  border: none;
+  background: #fff;
+  padding: 6px;
+  height: 38px;
+  border-radius: 30px;
+  font-size: 14px;
+  padding-left: 40px;
+}
+.search-chat div input::placeholder {
+  color: #bbb;
+}
+.search-chat div ion-icon {
+  position: absolute;
+  left: 30px;
+  top: 17px;
+  font-size: 1.2em;
+}
+.chatList {
+  position: relative;
+  height: calc(100% - 110px);
+  overflow: auto;
+  /* background: #ff0; */
+}
+.chatList .block {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+.selectUser {
+  background: #aaa8a6;
+}
+.chatList .block .imgbox {
+  position: relative;
+  width: 45px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.chatList .block .details {
+  position: relative;
+  width: 100%;
+}
+.chatList .block .details .listHead {
+  display: flex;
+  margin-left: 10px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.chatList .block .details .listHead h4 {
+  font-size: 1.1em;
+  font-weight: 200;
+  color: #111;
+}
+.chatList .block .details .listHead .time {
+  font-size: 0.75em;
+  color: #aaa;
+}
+
+/* right Side */
+.userText {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userText ion-icon {
+  font-size: 25px;
+  font-weight: 500;
+  margin-right: 10px;
+  display: none;
+}
+.userText h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-left: 15px;
+}
+.userText span {
+  font-size: 0.8em;
+  color: #555;
+}
+
+.chatbox {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 135px);
+  padding: 5px 30px;
+  overflow-y: auto;
+}
+.message {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  margin: 5px 0;
+}
+.message p {
+  position: relative; 
+  text-align: left;
+  max-width: 65%;
+  
+  padding: 6px 7px 8px 9px;
+  background: #dcf8c6;
+  border-radius: 10px;
+  font-size: 0.9em;
+  display: block;
+}
+.my_message p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -12px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(
+    135deg,
+    #dcf8c6 0%,
+    #dcf8c6 50%,
+    transparent 50%,
+    transparent
+  );
+}
+
+.message span {
+  float: right;
+  margin: 10px 0 -10px 35px;
+  font-size: 0.85em;
+  opacity: 0.5;
+  padding: 0;
+}
+.my_message {
+  justify-content: flex-end;
+}
+.server_message {
+  justify-content: flex-start;
+}
+.server_message p {
+  background: #fff;
+  text-align: left;
+}
+.server_message .hello::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -12px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(
+    225deg,
+    #fff 0%,
+    #fff 50%,
+    transparent 50%,
+    transparent
+  );
+}
+.chatbox_input {
+  position: relative;
+  width: 100%;
+  background: #f0f0f0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chatbox_input ion-icon {
+  cursor: pointer;
+  font-size: 1.8em;
+  color: #51585c;
+}
+.chatbox_input ion-icon:nth-child(1) {
+  margin-right: 15px;
+}
+.chatbox_input input {
+  position: relative;
+  width: 90%;
+  margin: 0 20px;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  border-radius: 30px;
+}
+
+/* dot loader */
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 30px;
+}
+.lds-ellipsis div {
+  position: absolute;
+
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: black;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+/* dot loader end */
+
+@media only screen and (max-width: 600px) {
+  .main {
+    margin: 0px;
+    width: 100%;
+    height: calc(100vh - 0px);
+    border: none;
+  }
+  .main .leftSide {
+    border-right: none;
+  }
+  .active {
+    display: none;
+  }
+  .userText ion-icon {
+    display: flex;
+  }
+}
+</style>
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
 <template>
   <div class="mainContainer">
     <div class="main">
@@ -24,7 +450,7 @@
           <div>
             <input
               type="text"
-              placeholder="Search or start new chat"
+              placeholder="Search"
               id="search"
               @input="search"
             />
@@ -37,26 +463,30 @@
           <div class="chatList" v-if="filtersShow === false">
             <div
               class="block"
-              @click="selectUser(expert.name)"
+              @click="selectUser(expert)"
               :class="{ selectUser: expert.name === user }"
+            
             >
+           
               <div class="imgbox">
                 <img src="../assets/user.png" class="cover" />
               </div>
               <div class="details">
                 <div class="listHead">
                   <h4>{{ expert.name }}</h4>
-                   <p class="time2">{{ expert.time }}</p>
+                  
+                <div class="noti-time">
+                  <div class="container-noti">
+                    
+                  <p class="notification">{{ expert.time.length }}</p>
+                  </div>
+                  <p class="time">{{ expert.time }}</p>
+               </div>
                 </div>
-               <div class="message-p">
-                 <p>Hello</p>
-                 <b v-if="expert.len>0">{{expert.len}}</b>
-                 </div>
               </div>
             </div>
           </div>
         </div>
-
         <div v-for="filter in filters" :key="filter.name">
           <div class="chatList">
             <div
@@ -79,13 +509,8 @@
         </div>
       </div>
 
-
-
-
-
-      
-         <div class="rightSide" v-bind:class="showClass ? 'non' : 'active'">
-        <div class="header" v-if="user">
+      <div class="rightSide" v-bind:class="showClass ? 'active' : ''">
+        <div class="header">
           <div class="userText">
             <ion-icon @click="back" name="arrow-back-outline"></ion-icon>
             <div class="userImg">
@@ -95,7 +520,6 @@
               {{ user }} <br /><span>{{ status }}</span>
             </h4>
           </div>
-          
           <ul class="nav_icons" v-if="user">
             <li><ion-icon @click="upload" name="push-outline"></ion-icon></li>
             <li><ion-icon name="search-outline"></ion-icon></li>
@@ -103,7 +527,7 @@
           </ul>
         </div>
         <!-- chat box -->
-        <div id='chatboxid' class="chatbox" v-chat-scroll v-if="user">
+        <div id='chatboxid' class="chatbox" v-chat-scroll>
           <div v-for="(ques, indx) in questionHistory" :key="indx">
             <div class="message my_message" v-if="ques.user === user">
               <p>
@@ -136,7 +560,7 @@
           </div>
         </div>
         <!-- chat input box -->
-        <div class="chatbox_input" v-if="user">
+        <div class="chatbox_input">
           <ion-icon name="happy-outline"></ion-icon>
           <ion-icon name="attach-outline"></ion-icon>
           <input
@@ -155,13 +579,7 @@
             <!-- <button v-scroll-to="'#chatboxid'">
             Scroll to #chatboxid
           </button> -->
- 
-  
-
-
-          
   </div>
-  
 </template>
 
 <script>
@@ -178,13 +596,13 @@ export default {
       send: false,
       filters: [],
       experts: [
-        { name: "Akbar", time: "",len: "" },
-        { name: "Mount Everest", time: "",len: "" },
-        { name: "NASA", time: "",len: "" },
-        { name: "History Of Computer", time: "",len: "" },
-        { name: "History Of India", time: "",len: "" },
-          { name: "Apple", time: "",len: "" },
-          { name: "ISRO", time: "",len: "" },
+        { name: "Akbar", time: "" },
+        { name: "Mount Everest", time: "" },
+        { name: "NASA", time: "" },
+        { name: "History Of Computer", time: "" },
+        { name: "History Of India", time: "" },
+          { name: "Apple", time: "" },
+          { name: "ISRO", time: "" },
       ],
       status: "",
       user: "",
@@ -196,9 +614,8 @@ export default {
        apple: "",
       mountet: "",
       model: "",
-      questionHistory: [],
-      questionHistory1: [],
-      count:0,
+      questionHistory: [
+      ],
       data: "",
       loader: false,
       showPopup: false,
@@ -254,7 +671,6 @@ export default {
       }
     },
     submit(passage) {
-      console.log("pasg",this.Akbar)
       if (passage === "") {
         //
       } else if (this.user === "Akbar") {
@@ -296,9 +712,6 @@ export default {
     },
     sendBtnCheck() {
       let typedMessage = document.getElementById("data").value;
-      console.log(typedMessage)             /* type message */
-      console.log(this.user)                /* user name= akbar */
-
       if (typedMessage !== "") {
         this.send = true;
         if (this.user === "Akbar") {
@@ -337,17 +750,14 @@ export default {
     back() {
       this.showClass = !this.showClass;
     },
-    selectUser(user) {
-      console.log({user})
-
+    selectUser(expert) {
+      console.log({expert})
+     let user=expert.name
       this.showClass = !this.showClass;
       this.status = "Online";
       this.user = user;
-      this.user1 = "";
       if (user === "Akbar") {
         this.model = this.akbar;
-      console.log("Select User",this.akbar)
-
       } else if (this.user === "NASA") {
         this.model = this.nasa;
       } else if (this.user === "Mount Everest") {
@@ -367,10 +777,7 @@ export default {
     },
 
     async saveItem() {
-      //console.log("save",user)
       const qna = require("@tensorflow-models/qna");
-        console.log("qna",qna)
-
       if (this.user === "") {
         //
         console.log("mnmm",this.user)
@@ -382,7 +789,6 @@ export default {
           }
         });
         let typedMessage = document.getElementById("data").value;
-        console.log("typedMessage",typedMessage)
         let newQues = {
           user: this.user,
           question: typedMessage,
@@ -391,7 +797,6 @@ export default {
           ans3: "",
           time: time,
         };
-        console.log("newQues",newQues)
         this.questionHistory.push(newQues);
         this.loader = true;
         document.getElementById("data").value = "";
@@ -401,18 +806,9 @@ export default {
             // Find the answers
             model.findAnswers(typedMessage, this.HistoryOfComputer).then((answers) => {
               let len = this.questionHistory.length;
-               this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
-              console.log("len",len)
             if (answers.length > 0) {
-
               if (answers.length > 1) {
                 if (answers.length > 2) {
-                    console.log("len",answers.length)
                   this.questionHistory[len - 1].ans1 = answers[0].text;
                   this.questionHistory[len - 1].ans2 = answers[1].text;
                   this.questionHistory[len - 1].ans3 = answers[2].text;
@@ -455,12 +851,6 @@ export default {
           // Find the answers
           model.findAnswers(typedMessage, this.MountEverest).then((answers) => {
             let len = this.questionHistory.length;
-             this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
@@ -482,7 +872,7 @@ export default {
           });
         });
       }
-      /////////////////////////////ISRO////////////////////////
+      /////////////////////////////Man///////
       else if (this.user === "ISRO") {
         let time = this.findTime();
         this.experts.map((timeObject) => {
@@ -508,12 +898,6 @@ export default {
           // Find the answers
           model.findAnswers(typedMessage, this.ISRO).then((answers) => {
             let len = this.questionHistory.length;
-             this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
@@ -536,7 +920,17 @@ export default {
         });
       }
       
-     //////////////////////////////////////NASA/////////////////////////////// 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       else if (this.user === "NASA") {
         let time = this.findTime();
         this.experts.map((timeObject) => {
@@ -562,12 +956,6 @@ export default {
           // Find the answers
           model.findAnswers(typedMessage, this.NASA).then((answers) => {
             let len = this.questionHistory.length;
-             this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
@@ -589,7 +977,7 @@ export default {
           });
         });
       } 
-      ///////////////////////////////////Apple///////////////////////////
+      ///////////////////////////////////Apple////
       else if (this.user === "Apple") {
         let time = this.findTime();
         this.experts.map((timeObject) => {
@@ -614,12 +1002,6 @@ export default {
         qna.load().then((model) => {
           model.findAnswers(typedMessage, this.Apple).then((answers) => {
             let len = this.questionHistory.length;
-             this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
@@ -641,7 +1023,6 @@ export default {
           });
         }); 
       }
-      /////////////////////////////////History Of India///////////////////
       else if (this.user === "History Of India") {
         let time = this.findTime();
         this.experts.map((timeObject) => {
@@ -667,13 +1048,6 @@ export default {
           // Find the answers
           model.findAnswers(typedMessage, this.HistoryOfIndia).then((answers) => {
             let len = this.questionHistory.length;
-              this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-             console.log("qus India",this.questionHistory)
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
@@ -695,19 +1069,18 @@ export default {
           });
         });
       }
-
-     ///////////////////////////////////////AKBAR////////////////////////////    
-
+      
+      
+      
+      
+      
+      
+      
       else if (this.user === "Akbar") {
         let time = this.findTime();
-       // let len1=this.questionHistory.length;
-      //  console.log("len1",len1)
-        console.log("time",time)
-
         this.experts.map((timeObject) => {
           if (timeObject.name === this.user) {
             timeObject.time = time;
-          //  timeObject.len1 = len1;
           }
         });
         let typedMessage = document.getElementById("data").value;
@@ -719,9 +1092,7 @@ export default {
           ans3: "",
           time: time,
         };
-        console.log("newQues",newQues)
         this.questionHistory.push(newQues);
-     //   console.log("newQues2",this.questionHistory.push)
         this.loader = true;
         document.getElementById("data").value = "";
         this.model = "";
@@ -729,15 +1100,6 @@ export default {
         qna.load().then((model) => {
           model.findAnswers(typedMessage, this.Akbar).then((answers) => {
             let len = this.questionHistory.length;
-//console.log("qushistory"(this.questionHistory))
-             this.experts.map((timeObject2) => {
-          if (timeObject2.name === this.user) {
-            console.log("qve",this.questionHistory)
-            timeObject2.len = len;
-          //  timeObject.len1 = len1;
-          }
-        });
-            console.log("len",len)
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
@@ -793,10 +1155,6 @@ export default {
   
   margin-right: 10px;
 }
-.time{
-  padding-right: 8px;
-  padding-bottom: 2px;
-}
 
 .notification{
   width: 20px;
@@ -804,7 +1162,6 @@ export default {
   color: rgb(234, 241, 236);
   border-radius: 10px;
   text-align: center;
-  margin-right: 1px;
  
 
 }
@@ -826,19 +1183,16 @@ export default {
 .main .leftSide {
   position: relative;
   width: 30%;
-  flex: 30%;
+  flex: 26%;
   background: #ffff;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid #aaa;
 }
 .main .rightSide {
   position: relative;
-  background-image: url("https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg");
   width: 70%;
  
   flex: 70%;
-  background: #e5ddd5;  
- /*background-image: url("/src/assets/welcome-placeholder.jpeg") ;
- background-size: 200px;   */
+  background: #e5ddd5;
  
 }
 
@@ -884,36 +1238,31 @@ export default {
 .search-chat {
   position: relative;
   width: 100%;
-  height: 55px;
- background:#fdf9f2;
+  height: 50px;
+  background: #f6f6f6;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 15px ;
-  border: solid 1px #e0e4e8;
- 
-  
+  padding: 0 15px;
 }
 .search-chat div {
   width: 100%;
- 
 }
 .search-chat div input {
   width: 100%;
   outline: none;
   border: none;
- 
+  background: #fff;
   padding: 6px;
   height: 38px;
-  border-radius:10px;
+  border-radius: 30px;
   font-size: 14px;
   padding-left: 40px;
- 
    background:#e0dedb;
 }
 .search-chat div input::placeholder {
   color: rgb(141, 134, 134);
- padding-left: 14px;
+ 
 }
 .search-chat div ion-icon {
   position: absolute;
@@ -924,7 +1273,7 @@ export default {
 .chatList {
   position: relative;
   height: calc(100% - 110px);
-  overflow-y: auto;
+  overflow: auto;
  
   /* background: #ff0; */
 }
@@ -932,92 +1281,45 @@ export default {
   position: relative;
   width: 100%;
   display: flex;
- /* justify-content: center;  */
-  align-items: center;    
+  align-items: center;
   padding: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   cursor: pointer;
-  
-  
 }
-
-
 .selectUser {
-  background: #f5f5f5;
-
+  background: #aaa8a6;
 }
 .chatList .block .imgbox {
   position: relative;
-  min-width: 45px;
+  width: 45px;
   height: 40px;
   overflow: hidden;
   border-radius: 50%;
-  margin-right: 10px;
 }
 .chatList .block .details {
   position: relative;
-  width: 100%;                        /*  50%   */
- 
-  
- 
+  width: 100%;
 }
 .chatList .block .details .listHead {
   display: flex;
-/*  margin-left: 18px;   */
-
- justify-content: space-between;  
+  margin-left: 10px;
+ justify-content: space-between;
   /* border: 1px solid red;   */
-
-margin-bottom: 0px;
+  margin-bottom: 5px;
 }
 .chatList .block .details .listHead h4 {
   font-size: 1em;
-  font-weight: 600;     /*bold  */
-  padding: 5px;
  /* font-weight: 100;   */
-  color: rgb(27, 22, 22);
+  color: #111;
  /* margin-right: 30px;  */
-
+ 
 }
-.chatList .block .details .listHead .time2 {
+.chatList .block .details .listHead .time {
   font-size: 0.75em;
   color: #aaa;
-  margin-right:2px;
-  margin-top: 8px;
-}
-.message-p{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-
-}
-.message-p p{
-  color: #aaa;
- margin-left: 5px;
-  display:-webkit-box;
-  -webkit-line-clamp: 1;
-  font-size: 0.9em;
-  -webkit-background-orient: vertical ;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-right:2px ;
 }
 
-.message-p b{
-  background: #06d755;
-  color: #fff;
-  min-width: 20px;
-  width: auto;
-  height: auto;   
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75em;
-  margin-right: 5px; 
-  padding:2px ;
-  
-}
 
 /* right Side */
 .userText {
@@ -1219,20 +1521,24 @@ margin-bottom: 0px;
   }
   .active {
     display: none;
-  
-  }
-  .on{
-    background: skyblue;
-  }
-  .rightSid{
-    background: skyblue;
-    width: 100vh;
-  }
-  .m1{
-    color:tomato;
   }
   .userText ion-icon {
     display: flex;
   }
 }
 </style>
+
+
+////////////////////////////////////////////////
+
+git add -A
+git commit -am "adding call logs module"
+git pull origin main         (branch name
+git push origin main          (branch name)
+git remote set-url origin https://github.com/MAnojSH5799/QNA-TensorFlow-Vue.git
+yarn install
+
+
+for add(lena) code //////// (Checkout)
+git checkout main        (branch name)
+git pull origin main     (branch name)
