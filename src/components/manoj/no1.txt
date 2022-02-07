@@ -104,7 +104,7 @@
         </div>
         <!-- chat box -->
         <div id='chatboxid' class="chatbox" v-chat-scroll v-if="user">
-          <div v-for="(ques, indx) in questionHistory" :key="indx">
+          <div v-for="(ques, indx) in questionHistory1" :key="indx">
             <div class="message my_message" v-if="ques.user === user">
               <p>
                 {{ ques.question }} <span>{{ ques.time }}</span>  
@@ -198,7 +198,6 @@ export default {
       model: "",
       questionHistory: [],
       questionHistory1: [],
-      count:0,
       data: "",
       loader: false,
       showPopup: false,
@@ -658,7 +657,7 @@ export default {
           ans3: "",
           time: time,
         };
-        this.questionHistory.push(newQues);
+        this.questionHistory1.push(newQues);
         this.loader = true;
         document.getElementById("data").value = "";
         this.model = "";
@@ -666,10 +665,9 @@ export default {
         qna.load().then((model) => {
           // Find the answers
           model.findAnswers(typedMessage, this.HistoryOfIndia).then((answers) => {
-            let len = this.questionHistory.length;
+            let len = this.questionHistory1.length;
               this.experts.map((timeObject2) => {
           if (timeObject2.name === this.user) {
-             console.log("qus India",this.questionHistory)
             timeObject2.len = len;
           //  timeObject.len1 = len1;
           }
@@ -677,18 +675,18 @@ export default {
             if (answers.length > 0) {
               if (answers.length > 1) {
                 if (answers.length > 2) {
-                  this.questionHistory[len - 1].ans1 = answers[0].text;
-                  this.questionHistory[len - 1].ans2 = answers[1].text;
-                  this.questionHistory[len - 1].ans3 = answers[2].text;
+                  this.questionHistory1[len - 1].ans1 = answers[0].text;
+                  this.questionHistory1[len - 1].ans2 = answers[1].text;
+                  this.questionHistory1[len - 1].ans3 = answers[2].text;
                 } else {
-                  this.questionHistory[len - 1].ans1 = answers[0].text;
-                  this.questionHistory[len - 1].ans2 = answers[1].text;
+                  this.questionHistory1[len - 1].ans1 = answers[0].text;
+                  this.questionHistory1[len - 1].ans2 = answers[1].text;
                 }
               } else {
-                this.questionHistory[len - 1].ans1 = answers[0].text;
+                this.questionHistory1[len - 1].ans1 = answers[0].text;
               }
             } else {
-              this.questionHistory[len - 1].ans1 = "Sorry! No Answer";
+              this.questionHistory1[len - 1].ans1 = "Sorry! No Answer";
             }
             this.loader = false;
             this.send = false; 
@@ -729,14 +727,28 @@ export default {
         qna.load().then((model) => {
           model.findAnswers(typedMessage, this.Akbar).then((answers) => {
             let len = this.questionHistory.length;
-//console.log("qushistory"(this.questionHistory))
-             this.experts.map((timeObject2) => {
+
+             this.experts.map((timeObject2) => {            
           if (timeObject2.name === this.user) {
-            console.log("qve",this.questionHistory)
             timeObject2.len = len;
           //  timeObject.len1 = len1;
           }
         });
+
+  let len = this.questionHistory.length;
+              this.experts.map((timeObject2) => {
+          if (timeObject2.name === this.user) {
+            timeObject2.len = len;
+          //  timeObject.len1 = len1;
+          }
+        });
+
+
+
+
+
+
+
             console.log("len",len)
             if (answers.length > 0) {
               if (answers.length > 1) {
