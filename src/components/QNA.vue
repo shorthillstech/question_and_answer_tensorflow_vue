@@ -510,9 +510,10 @@ export default {
 }
 .main .rightSide {
   position: relative;
+  background-image: url("https://www.imgacademy.com/themes/custom/imgacademy/images/helpbox-contact.jpg");
   width: 70%;
   flex: 70%;
-  background: #e5ddd5;
+  /* background: #e5ddd5; */
 }
 
 .header {
