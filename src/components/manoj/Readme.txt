@@ -1535,7 +1535,7 @@ git add -A
 git commit -am "adding call logs module"
 git pull origin main         (branch name
 git push origin main          (branch name)
-
+git remote set-url origin https://github.com/MAnojSH5799/QNA-TensorFlow-Vue.git
 yarn install
 
 

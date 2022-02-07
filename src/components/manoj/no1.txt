@@ -728,12 +728,27 @@ export default {
           model.findAnswers(typedMessage, this.Akbar).then((answers) => {
             let len = this.questionHistory.length;
 
-             this.experts.map((timeObject2) => {
+             this.experts.map((timeObject2) => {            
           if (timeObject2.name === this.user) {
             timeObject2.len = len;
           //  timeObject.len1 = len1;
           }
         });
+
+  let len = this.questionHistory.length;
+              this.experts.map((timeObject2) => {
+          if (timeObject2.name === this.user) {
+            timeObject2.len = len;
+          //  timeObject.len1 = len1;
+          }
+        });
+
+
+
+
+
+
+
             console.log("len",len)
             if (answers.length > 0) {
               if (answers.length > 1) {

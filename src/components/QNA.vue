@@ -198,6 +198,7 @@ export default {
       model: "",
       questionHistory: [],
       questionHistory1: [],
+      count:0,
       data: "",
       loader: false,
       showPopup: false,
@@ -668,6 +669,7 @@ export default {
             let len = this.questionHistory.length;
               this.experts.map((timeObject2) => {
           if (timeObject2.name === this.user) {
+             console.log("qus India",this.questionHistory)
             timeObject2.len = len;
           //  timeObject.len1 = len1;
           }
@@ -730,6 +732,7 @@ export default {
 //console.log("qushistory"(this.questionHistory))
              this.experts.map((timeObject2) => {
           if (timeObject2.name === this.user) {
+            console.log("qve",this.questionHistory)
             timeObject2.len = len;
           //  timeObject.len1 = len1;
           }
